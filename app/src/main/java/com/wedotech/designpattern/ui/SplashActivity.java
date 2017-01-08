@@ -1,8 +1,15 @@
 package com.wedotech.designpattern.ui;
 
-/**
- * Created by zhangsheng on 2017/1/8.
- */
+import android.support.v7.app.AppCompatActivity;
+import android.os.Bundle;
 
-public class SplashActivity {
+import com.wedotech.designpattern.R;
+
+public class SplashActivity extends AppCompatActivity {
+
+    @Override
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        setContentView(R.layout.activity_splash);
+    }
 }
