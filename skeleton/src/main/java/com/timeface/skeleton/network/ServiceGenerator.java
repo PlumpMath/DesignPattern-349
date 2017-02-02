@@ -1,14 +1,16 @@
-package com.wedotech.designpattern.data;
+package com.timeface.skeleton.network;
 
 import com.google.gson.Gson;
 import com.jakewharton.retrofit2.adapter.rxjava2.RxJava2CallAdapterFactory;
-import com.wedotech.designpattern.BuildConfig;
+import com.timeface.skeleton.BuildConfig;
 
+import java.io.IOException;
 import java.util.concurrent.TimeUnit;
 
 import okhttp3.Interceptor;
 import okhttp3.OkHttpClient;
 import okhttp3.Request;
+import okhttp3.Response;
 import okhttp3.logging.HttpLoggingInterceptor;
 import retrofit2.Retrofit;
 import retrofit2.converter.gson.GsonConverterFactory;
@@ -36,13 +38,16 @@ public class ServiceGenerator {
 
     private ServiceGenerator() {
         this.okHttpBuilder = new OkHttpClient.Builder();
-        Interceptor headerInterceptor = chain -> {
-            Request original = chain.request();
-            Request request = original.newBuilder()
-                    .header(CONTENT_TYPE, CONTENT_TYPE_VALUE)
-                    .method(original.method(), original.body())
-                    .build();
-            return chain.proceed(request);
+        Interceptor headerInterceptor = new Interceptor() {
+            @Override
+            public Response intercept(Chain chain) throws IOException {
+                Request original = chain.request();
+                Request request = original.newBuilder()
+                        .header(CONTENT_TYPE, CONTENT_TYPE_VALUE)
+                        .method(original.method(), original.body())
+                        .build();
+                return chain.proceed(request);
+            }
         };
         okHttpBuilder.addInterceptor(headerInterceptor);
         okHttpBuilder.connectTimeout(TIMEOUT_CONNECT, TimeUnit.SECONDS);

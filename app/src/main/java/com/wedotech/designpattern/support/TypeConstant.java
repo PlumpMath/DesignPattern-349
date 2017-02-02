@@ -1,4 +1,4 @@
-package com.wedotech.designpattern.ui.common;
+package com.wedotech.designpattern.support;
 
 /**
  * Created by zhangsheng on 2017/1/8.
